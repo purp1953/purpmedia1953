@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PURP MEDIA! - Suara & Denyut Nadi Pendekar Cisadane</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            purp: {
+              950: '#140824',
+              900: '#230a42',
+              800: '#3c126e',
+              700: '#58189c',
+              600: '#751ecc',
+              500: '#9333ea',
+              400: '#a855f7',
+              300: '#c084fc',
+              200: '#e9d5ff',
+            },
+            dark: {
+              900: '#09080c',
+              850: '#0e0d14',
+              800: '#14131d',
+              700: '#1d1b2a',
+              600: '#28253a',
+            },
+            gold: {
+              500: '#eab308',
+              400: '#facc15',
+              300: '#fde047',
+              gradient: 'linear-gradient(135deg, #f59e0b 0%, #fcd34d 50%, #d97706 100%)',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'marquee': 'marquee 25s linear infinite',
+            'spin-slow': 'spin 8s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Styling scrollbar bernuansa ungu-emas */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0e0d14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #58189c;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #eab308;
+    }
+    
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fde047 0%, #eab308 50%, #b45309 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .purple-glass {
+      background: rgba(35, 10, 66, 0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+    }
+
+    .shimmer-ai {
+      background: linear-gradient(90deg, rgba(234, 179, 8, 0.1) 0%, rgba(147, 51, 234, 0.25) 50%, rgba(234, 179, 8, 0.1) 100%);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+  </style>
+</head>
+
+<body class="bg-dark-900 text-slate-100 font-sans antialiased selection:bg-purp-600 selection:text-gold-300 min-h-screen flex flex-col relative">
+
+  <!-- ================= NOTIFIKASI TOAST ================= -->
+  <div id="toast" class="fixed bottom-6 left-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-5 py-3.5 rounded-xl purple-glass border border-gold-400/40 text-sm font-semibold shadow-2xl shadow-purp-900/50">
+    <i class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
+    <span id="toast-message" class="text-slate-100">Pemberitahuan berhasil</span>
+  </div>
+
+  <!-- ================= FLOATING AI SCOUT BUTTON ================= -->
+  <div class="fixed bottom-6 right-6 z-40">
+    <button onclick="openAiChatModal()" class="flex items-center gap-3 px-5 py-3.5 rounded-full bg-gradient-to-r from-purp-700 via-purp-600 to-amber-600 hover:from-purp-600 hover:to-gold-400 text-white font-extrabold text-sm shadow-2xl shadow-purp-700/60 hover:scale-105 transition-all duration-300 border border-gold-400/50 group">
+      <div class="w-7 h-7 rounded-full bg-dark-900/60 flex items-center justify-center text-gold-300 text-base">
+        <i class="fa-solid fa-brain animate-pulse"></i>
+      </div>
+      <span class="tracking-wide">✨ Cisadane AI Scout</span>
+      <span class="w-2.5 h-2.5 rounded-full bg-gold-400 animate-ping"></span>
+    </button>
+  </div>
+
+  <!-- ================= TOP TICKER / BREAKING NEWS ================= -->
+  <div class="bg-gradient-to-r from-purp-950 via-dark-850 to-purp-950 border-b border-purp-800/40 text-xs py-2 px-4 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto flex items-center">
+      <div class="flex items-center gap-2 pr-4 bg-purp-950 z-10 font-bold uppercase tracking-wider text-gold-400 flex-shrink-0">
+        <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+        <i class="fa-solid fa-bolt"></i> Flash Cisadane:
+      </div>
+      <div class="overflow-hidden whitespace-nowrap w-full">
+        <div class="inline-block animate-marquee font-medium text-slate-300">
+          <span class="mx-6 hover:text-gold-300 cursor-pointer">🟣 Jadwal Berikutnya: Persita vs Bali United | Sabtu, Stadion Indomilk Arena | Kick-off 19.00 WIB</span>
+          <span class="text-purp-500">•</span>
+          <span class="mx-6 hover:text-gold-300 cursor-pointer">✨ Coba Analisis Taktik Otomatis & AI Scout Cisadane versi terbaru!</span>
+          <span class="text-purp-500">•</span>
+          <span class="mx-6 hover:text-gold-300 cursor-pointer">⭐ Bae Sin-yeong dinobatkan sebagai Gelandang Terbaik Pekan Ini versi PURP MEDIA!</span>
+          <span class="text-purp-500">•</span>
+          <span class="mx-6 hover:text-gold-300 cursor-pointer">🎟️ Tiket Tribune Timur & Selatan sudah dibuka untuk laga kandang akhir pekan!</span>
+          <span class="text-purp-500">•</span>
+          <span class="mx-6 hover:text-gold-300 cursor-pointer">🟣 Jadwal Berikutnya: Persita vs Bali United | Sabtu, Stadion Indomilk Arena | Kick-off 19.00 WIB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-30 purple-glass border-b border-purp-700/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo PURP MEDIA! dengan Logo Unggahan Baru -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="relative flex items-center">
+            <!-- Logo Image yang baru diunggah -->
+            <img 
+              src="Screenshot_2026-08-29_111301-removebg-preview.png" 
+              alt="Logo PURP!" 
+              class="h-10 sm:h-12 w-auto max-w-[130px] sm:max-w-[160px] object-contain brightness-125 drop-shadow-[0_0_10px_rgba(192,132,252,0.5)] group-hover:scale-105 group-hover:drop-shadow-[0_0_14px_rgba(250,204,21,0.8)] transition-all duration-300"
+              onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+            />
+            <!-- Fallback Elemen jika gambar lokal tidak termuat -->
+            <div class="hidden flex items-center">
+              <span class="font-display font-black text-2xl tracking-tighter text-white">PURP<span class="gold-gradient-text">!</span></span>
+            </div>
+          </div>
+          <div class="border-l border-purp-700/60 pl-2.5 sm:pl-3">
+            <div class="flex items-center">
+              <span class="font-display font-black text-lg sm:text-xl tracking-wider gold-gradient-text leading-none">MEDIA!</span>
+            </div>
+            <span class="text-[9px] sm:text-[10px] tracking-widest text-purp-300 font-semibold uppercase block mt-0.5">Tangerang Purple Force</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+          <a href="#berita" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-gold-400 hover:bg-purp-900/50 transition">Berita</a>
+          <a href="#pertandingan" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-gold-400 hover:bg-purp-900/50 transition">Pertandingan</a>
+          <a href="#klasemen" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-gold-400 hover:bg-purp-900/50 transition">Klasemen</a>
+          <a href="#skuad" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-gold-400 hover:bg-purp-900/50 transition">Skuad</a>
+          <a href="#fanzone" class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-200 hover:text-gold-400 hover:bg-purp-900/50 transition">Fans Zone</a>
+          
+          <!-- AI Navigation Trigger -->
+          <button onclick="openAiChatModal()" class="ml-2 px-3 py-1.5 rounded-lg text-xs font-extrabold bg-gradient-to-r from-purp-800 to-amber-500/80 hover:to-gold-400 text-white border border-gold-400/40 shadow-sm transition flex items-center gap-1.5">
+            <span>✨ Asisten AI</span>
+          </button>
+        </nav>
+
+        <!-- Right Action: Search & Sound Toggle -->
+        <div class="hidden sm:flex items-center gap-3">
+          <div class="relative">
+            <input type="text" id="searchInput" placeholder="Cari berita Pendekar..." class="w-40 lg:w-52 bg-dark-800/90 border border-purp-700/50 rounded-full py-2 pl-9 pr-3 text-xs text-slate-200 placeholder-slate-400 focus:outline-none focus:border-gold-400 focus:w-60 transition-all duration-300" />
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-purp-400"></i>
+          </div>
+
+          <button onclick="toggleChant()" id="chantBtn" class="flex items-center gap-2 px-3.5 py-2 rounded-full border border-gold-400/40 bg-purp-950/80 hover:bg-purp-900 text-gold-400 text-xs font-bold transition shadow-sm hover:shadow-gold-500/20">
+            <i class="fa-solid fa-volume-high text-xs"></i>
+            <span id="chantBtnText">Chant Viola</span>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl text-slate-300 hover:text-gold-400 hover:bg-purp-900/60 focus:outline-none">
+          <i class="fa-solid fa-bars-staggered text-xl"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-purp-800/50 bg-dark-900/95 px-5 py-4 space-y-3">
+      <div class="relative mb-3">
+        <input type="text" id="mobileSearchInput" placeholder="Cari artikel Persita..." class="w-full bg-dark-800 border border-purp-700/60 rounded-xl py-2.5 pl-10 pr-3 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-gold-400" />
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-purp-400"></i>
+      </div>
+      <button onclick="openAiChatModal(); mobileMenu.classList.add('hidden');" class="w-full text-left py-2.5 px-3 rounded-xl bg-gradient-to-r from-purp-800 to-amber-600 text-sm font-bold text-white flex items-center justify-between">
+        <span>✨ Buka Cisadane AI Scout</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
+      <a href="#berita" class="mobile-nav-link block py-2 text-sm font-semibold text-slate-200 hover:text-gold-400">Berita Terkini</a>
+      <a href="#pertandingan" class="mobile-nav-link block py-2 text-sm font-semibold text-slate-200 hover:text-gold-400">Jadwal & Hasil</a>
+      <a href="#klasemen" class="mobile-nav-link block py-2 text-sm font-semibold text-slate-200 hover:text-gold-400">Klasemen Liga 1</a>
+      <a href="#skuad" class="mobile-nav-link block py-2 text-sm font-semibold text-slate-200 hover:text-gold-400">Skuad & Profil</a>
+      <a href="#fanzone" class="mobile-nav-link block py-2 text-sm font-semibold text-slate-200 hover:text-gold-400">Viola Fans Zone</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-6 pb-12 overflow-hidden">
+    <!-- Ambient Glow Backgrounds -->
+    <div class="absolute top-10 left-1/4 w-96 h-96 bg-purp-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-10 w-80 h-80 bg-gold-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Hero Utama (Left 8 cols) -->
+        <div class="lg:col-span-8 relative rounded-3xl overflow-hidden border border-purp-700/40 bg-dark-850 group cursor-pointer" onclick="openModal(1)">
+          <div class="relative h-[380px] sm:h-[460px] w-full overflow-hidden">
+            <!-- Background Image with Gradient Mask -->
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80" alt="Persita Tangerang Stadium Match" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-purp-950/70 to-transparent"></div>
+
+            <!-- Badges -->
+            <div class="absolute top-6 left-6 flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-gold-400 text-dark-900 shadow-md">
+                <i class="fa-solid fa-fire-flame-curved mr-1"></i> Utama
+              </span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider purple-glass text-purp-200 border border-purp-400/30">
+                Taktik & Analisis
+              </span>
+              <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purp-900/80 text-gold-300 border border-gold-400/30">
+                ✨ Dilengkapi AI Summary
+              </span>
+            </div>
+
+            <!-- Content overlay -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+              <div class="flex items-center gap-3 text-xs text-gold-400 font-semibold mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> 2 Jam yang lalu</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-user-pen mr-1"></i> Redaksi PURP</span>
+                <span>•</span>
+                <span class="text-purp-300"><i class="fa-solid fa-eye mr-1"></i> 3.4k Dibaca</span>
+              </div>
+              <h1 class="font-display font-black text-2xl sm:text-4xl text-white group-hover:text-gold-300 transition leading-tight mb-3">
+                Kunci Transformasi Lini Tengah Pendekar Cisadane: Lebih Agresif, Solid, dan Mematikan!
+              </h1>
+              <p class="text-slate-300 text-xs sm:text-sm line-clamp-2 max-w-2xl">
+                Tinjauan mendalam skema pressing tinggi yang diterapkan pelatih di Indomilk Arena membawa stabilitas pertahanan dan kreasi serangan kilat dari sayap.
+              </p>
+              <div class="mt-4 flex items-center gap-2 text-gold-400 font-bold text-xs group-hover:translate-x-2 transition-transform">
+                <span>Baca Selengkapnya & Lihat Ringkasan AI</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Samping / Match Center Highlight (Right 4 cols) -->
+        <div class="lg:col-span-4 flex flex-col gap-5">
+          
+          <!-- Match Countdown Card -->
+          <div class="p-5 rounded-3xl purple-glass border border-purp-600/30 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold uppercase tracking-widest text-gold-400 flex items-center gap-1.5">
+                <i class="fa-regular fa-calendar-check"></i> Matchday Terdekat
+              </span>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-purp-800 text-purp-200 font-bold">BRI Liga 1</span>
+            </div>
+
+            <div class="flex items-center justify-between text-center py-2">
+              <!-- Home: Persita -->
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-purp-900 border border-gold-400/40 flex items-center justify-center text-gold-400 text-2xl font-black shadow-lg shadow-purp-950">
+                  🟣
+                </div>
+                <h4 class="font-display font-extrabold text-white text-sm mt-2">PERSITA</h4>
+                <span class="text-[10px] text-purp-300">Tuan Rumah</span>
+              </div>
+
+              <!-- VS Badge -->
+              <div class="px-2 flex flex-col items-center">
+                <span class="font-display font-black text-gold-400 text-lg">VS</span>
+                <span class="text-[10px] text-slate-400 mt-1">Sabtu, 19:00</span>
+                <span class="text-[9px] px-2 py-0.5 rounded bg-dark-900 text-slate-300 mt-0.5">Indomilk Arena</span>
+              </div>
+
+              <!-- Away: Bali Utd -->
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-14 h-14 rounded-2xl bg-dark-800 border border-slate-700 flex items-center justify-center text-red-500 text-2xl font-black shadow-lg">
+                  🔴
+                </div>
+                <h4 class="font-display font-extrabold text-white text-sm mt-2">BALI UTD</h4>
+                <span class="text-[10px] text-slate-400">Tamu</span>
+              </div>
+            </div>
+
+            <!-- Countdown Timer -->
+            <div class="mt-4 pt-3 border-t border-purp-700/40 grid grid-cols-4 gap-2 text-center text-xs">
+              <div class="bg-dark-900/70 py-1.5 rounded-lg border border-purp-800/40">
+                <div class="font-display font-black text-gold-400 text-sm" id="days">02</div>
+                <span class="text-[9px] text-slate-400">Hari</span>
+              </div>
+              <div class="bg-dark-900/70 py-1.5 rounded-lg border border-purp-800/40">
+                <div class="font-display font-black text-gold-400 text-sm" id="hours">14</div>
+                <span class="text-[9px] text-slate-400">Jam</span>
+              </div>
+              <div class="bg-dark-900/70 py-1.5 rounded-lg border border-purp-800/40">
+                <div class="font-display font-black text-gold-400 text-sm" id="mins">38</div>
+                <span class="text-[9px] text-slate-400">Menit</span>
+              </div>
+              <div class="bg-dark-900/70 py-1.5 rounded-lg border border-purp-800/40">
+                <div class="font-display font-black text-gold-400 text-sm" id="secs">45</div>
+                <span class="text-[9px] text-slate-400">Detik</span>
+              </div>
+            </div>
+
+            <!-- AI Fast Match Prediction CTA -->
+            <div class="mt-3 pt-2">
+              <button onclick="askAiMatchPreview()" class="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-purp-800 to-amber-600 hover:from-purp-700 hover:to-amber-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
+                <span>✨ Prediksi Skor & Analisis Lawan AI</span>
+                <i class="fa-solid fa-wand-magic-sparkles text-gold-300 text-xs"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Secondary Hot Topic -->
+          <div class="p-5 rounded-3xl bg-dark-850 border border-purp-800/40 hover:border-gold-400/40 transition cursor-pointer group" onclick="openModal(2)">
+            <div class="flex gap-4 items-center">
+              <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=400&q=80" alt="Latihan Persita" class="w-20 h-20 rounded-2xl object-cover group-hover:scale-105 transition duration-300 flex-shrink-0" />
+              <div>
+                <span class="text-[10px] font-extrabold uppercase tracking-wider text-gold-400">Wawancara Eksklusif</span>
+                <h3 class="font-display font-bold text-sm text-slate-100 group-hover:text-gold-300 transition line-clamp-2 mt-1">
+                  "Target Kami Tembus 5 Besar": Pesan Khusus Kapten untuk Suporter Benteng Viola
+                </h3>
+                <span class="text-[11px] text-slate-400 mt-2 block"><i class="fa-regular fa-clock mr-1"></i> 4 jam lalu</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BERITA & FILTER SECTION ================= -->
+  <section id="berita" class="py-10 bg-dark-850 border-y border-purp-900/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header & Filter Pills -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-gold-400 font-bold text-xs uppercase tracking-widest mb-1">
+            <span class="w-2 h-2 rounded-full bg-gold-400"></span>
+            Kanal Liputan
+          </div>
+          <h2 class="font-display font-black text-2xl sm:text-3xl text-white">
+            Kabar <span class="gold-gradient-text">Persita Terkini</span>
+          </h2>
+        </div>
+
+        <!-- Filter Tags -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none" id="filterContainer">
+          <button onclick="filterNews('semua')" class="filter-btn active px-4 py-1.5 rounded-full text-xs font-bold transition bg-gold-400 text-dark-900" data-cat="semua">
+            Semua
+          </button>
+          <button onclick="filterNews('liga1')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-dark-700 text-slate-300 hover:bg-purp-800" data-cat="liga1">
+            Liga 1
+          </button>
+          <button onclick="filterNews('transfer')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-dark-700 text-slate-300 hover:bg-purp-800" data-cat="transfer">
+            Bursa Transfer
+          </button>
+          <button onclick="filterNews('taktik')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-dark-700 text-slate-300 hover:bg-purp-800" data-cat="taktik">
+            Taktik & Analisis
+          </button>
+          <button onclick="filterNews('viola')" class="filter-btn px-4 py-1.5 rounded-full text-xs font-bold transition bg-dark-700 text-slate-300 hover:bg-purp-800" data-cat="viola">
+            Kabar Suporter
+          </button>
+        </div>
+      </div>
+
+      <!-- News Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="newsGrid">
+        
+        <!-- Card 1 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="liga1" data-title="kondisi fisik pemain persita siap tempur">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=600&q=80" alt="Latihan Fisik Persita" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-purp-700 text-white">Liga 1</span>
+            <button onclick="shareArticle('Kondisi Fisik Pasukan Cisadane 100% Siap Tempur')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> Hari ini, 10:15 WIB</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Fisik & Kebugaran</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(1)">
+                Fisik Pemain Mengalami Peningkatan Signifikan Jelang Laga Kandang Kontra Juara Bertahan
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Pelatih fisik membeberkan program latihan intensitas tinggi selama sepekan untuk mengimbangi kecepatan transisi lawan.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 3 mnt baca</span>
+              <button onclick="openModal(1)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="transfer" data-title="rumor transfer playmaker asal amerika latin">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=600&q=80" alt="Bursa Transfer Persita" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-gold-500 text-dark-900">Transfer</span>
+            <button onclick="shareArticle('Rumor Playmaker Baru Persita')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> Kemarin</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Bursa Pemain</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(2)">
+                Manajemen Buka Suara Terkait Kabar Pendekatan Playmaker Kreatif Asal Amerika Latin
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Menyusul kebutuhan gelandang bertipe box-to-box, rumor kian kencang bahwa Persita tengah membidik talenta berpengalaman.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 4 mnt baca</span>
+              <button onclick="openModal(2)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="taktik" data-title="analisis taktik compact defense cisadane">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=600&q=80" alt="Analisis Taktik" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-purp-600 text-white">Taktik</span>
+            <button onclick="shareArticle('Bedah Formasi 4-3-3 Persita')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> 2 hari lalu</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Taktik Room</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(3)">
+                Bedah Formasi 4-2-3-1: Mengapa Transisi Negatif Persita Menjadi Salah Satu yang Terbaik Musim Ini
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Analisis statistik membuktikan persentase intersep dan pemulihan bola Persita di area sepertiga tengah meningkat 23%.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 6 mnt baca</span>
+              <button onclick="openModal(3)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="viola" data-title="koreografi benteng viola indomilk arena">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=600&q=80" alt="Suporter Viola Persita" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-purp-800 text-gold-300 border border-gold-400/30">Viola Fan</span>
+            <button onclick="shareArticle('Koreografi Megah Benteng Viola')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> 3 hari lalu</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Tribun Kehormatan</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(4)">
+                Siapkan Koreo Spektakuler 3D: Benteng Viola Janjikan Gemuruh Indomilk Arena Membakar Semangat
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Komunitas suporter telah merampungkan persiapan koreo raksasa menyambut partai derby Banten yang dinanti-nantikan.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 2 mnt baca</span>
+              <button onclick="openModal(4)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="liga1" data-title="evaluasi laga tandang persita">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=600&q=80" alt="Evaluasi Laga" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-purp-700 text-white">Liga 1</span>
+            <button onclick="shareArticle('Catatan Evaluasi Laga Tandang')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> 4 hari lalu</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Match Review</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(1)">
+                Curi Satu Poin Krusial di Surabaya, Mental Tangguh Pasukan Ungu Menuai Apresiasi Tinggi
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Meski sempat tertinggal di babak pertama, daya juang pantang menyerah berhasil membuyarkan pesta tuan rumah.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 3 mnt baca</span>
+              <button onclick="openModal(1)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="news-card rounded-3xl bg-dark-800 border border-purp-800/40 hover:border-gold-400/50 overflow-hidden flex flex-col group transition duration-300 shadow-lg" data-category="viola" data-title="merchandise jersey persita tangerang">
+          <div class="relative h-48 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=600&q=80" alt="Jersey Persita" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-gold-400 text-dark-900">Merchandise</span>
+            <button onclick="shareArticle('Jersey Ketiga Persita Resmi Rilis')" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-dark-900/80 text-gold-400 flex items-center justify-center hover:bg-gold-400 hover:text-dark-900 transition">
+              <i class="fa-solid fa-share-nodes text-xs"></i>
+            </button>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-clock mr-1"></i> 5 hari lalu</span>
+                <span>•</span>
+                <span class="text-gold-400 font-semibold">Store & Apparel</span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-white group-hover:text-gold-300 transition line-clamp-2 mb-2 cursor-pointer" onclick="openModal(2)">
+                Desain Megah Kombinasi Ungu-Emas: Jersey Edisi Spesial Persita Ludes Terjual dalam 2 Jam
+              </h3>
+              <p class="text-slate-400 text-xs line-clamp-2">
+                Antusiasme luar biasa dari para suporter menyambut rilisan edisi terbatas dengan badge khusus ikonik cisadane.
+              </p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-purp-900/60 flex items-center justify-between">
+              <span class="text-[11px] text-purp-300 font-medium"><i class="fa-solid fa-book-open mr-1"></i> 2 mnt baca</span>
+              <button onclick="openModal(2)" class="text-xs font-bold text-gold-400 hover:text-white transition flex items-center gap-1">
+                Baca & Ringkas <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PERTANDINGAN & KLASEMEN ================= -->
+  <section id="pertandingan" class="py-14 bg-dark-900 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Kolom Kiri: Jadwal & Hasil Terakhir (7 cols) -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <span class="text-gold-400 text-xs font-bold uppercase tracking-widest block mb-1">Zona Laga</span>
+              <h2 class="font-display font-black text-2xl text-white">Jadwal & Hasil Pertandingan</h2>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold purple-glass text-purp-300 border border-purp-600/40">
+              Musim 2024/2025
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            
+            <!-- Item 1: Hasil Terakhir (Menang) -->
+            <div class="p-4 rounded-2xl bg-dark-850 border border-emerald-500/30 flex items-center justify-between hover:border-emerald-500/60 transition">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">M</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-display font-extrabold text-white text-sm">Persita Tangerang</span>
+                    <span class="px-2 py-0.5 rounded bg-purp-900 text-gold-400 font-bold text-xs">2 - 1</span>
+                    <span class="font-display font-semibold text-slate-300 text-sm">Persis Solo</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5"><i class="fa-regular fa-calendar mr-1"></i> Pekan 18 • Indomilk Arena</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-emerald-400 hidden sm:block">+3 Poin</span>
+            </div>
+
+            <!-- Item 2: Hasil Terakhir (Imbang) -->
+            <div class="p-4 rounded-2xl bg-dark-850 border border-slate-700/50 flex items-center justify-between hover:border-slate-600 transition">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">S</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-display font-semibold text-slate-300 text-sm">Persebaya</span>
+                    <span class="px-2 py-0.5 rounded bg-dark-700 text-slate-200 font-bold text-xs">1 - 1</span>
+                    <span class="font-display font-extrabold text-white text-sm">Persita Tangerang</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5"><i class="fa-regular fa-calendar mr-1"></i> Pekan 17 • Gelora Bung Tomo</span>
+                </div>
+              </div>
+              <span class="text-xs font-bold text-amber-400 hidden sm:block">+1 Poin</span>
+            </div>
+
+            <!-- Item 3: Jadwal Mendatang (Kandang) -->
+            <div class="p-4 rounded-2xl bg-purp-950/80 border border-purp-600/40 flex items-center justify-between hover:border-gold-400/50 transition">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-purp-800 text-gold-400 flex items-center justify-center font-bold text-xs">VS</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-display font-extrabold text-white text-sm">Persita Tangerang</span>
+                    <span class="text-xs text-gold-400 font-bold px-1.5">vs</span>
+                    <span class="font-display font-semibold text-slate-300 text-sm">Bali United</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5"><i class="fa-regular fa-clock mr-1"></i> Sabtu, 19:00 WIB • Indomilk Arena</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button onclick="askSpecificMatchAi('Persita vs Bali United')" class="px-3 py-1.5 rounded-xl purple-glass hover:border-gold-400 text-gold-300 font-bold text-xs transition hidden sm:inline-flex items-center gap-1">
+                  <span>✨ Bedah Laga</span>
+                </button>
+                <button onclick="showToast('Tiket laga kandang dapat dibeli melalui loket resmi!')" class="px-3 py-1.5 rounded-xl bg-gold-400 hover:bg-gold-300 text-dark-900 font-bold text-xs transition">
+                  Tiket
+                </button>
+              </div>
+            </div>
+
+            <!-- Item 4: Jadwal Mendatang (Tandang) -->
+            <div class="p-4 rounded-2xl bg-dark-850 border border-purp-900/60 flex items-center justify-between hover:border-purp-700 transition">
+              <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-xl bg-dark-700 text-slate-400 flex items-center justify-center font-bold text-xs">VS</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-display font-semibold text-slate-300 text-sm">Dewa United</span>
+                    <span class="text-xs text-slate-400 font-bold px-1.5">vs</span>
+                    <span class="font-display font-extrabold text-white text-sm">Persita Tangerang</span>
+                  </div>
+                  <span class="text-[11px] text-slate-400 block mt-0.5"><i class="fa-regular fa-clock mr-1"></i> Minggu berikutnya, 15:30 WIB</span>
+                </div>
+              </div>
+              <span class="text-xs text-purp-300 font-medium">Derby Banten</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Klasemen Sementara (5 cols) -->
+        <div class="lg:col-span-5" id="klasemen">
+          <div class="p-6 rounded-3xl purple-glass border border-purp-700/40">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="text-gold-400 text-xs font-bold uppercase tracking-widest block">Update Terkini</span>
+                <h3 class="font-display font-black text-xl text-white">Klasemen BRI Liga 1</h3>
+              </div>
+              <i class="fa-solid fa-ranking-star text-gold-400 text-xl"></i>
+            </div>
+
+            <!-- Tabel Klasemen Ringkas -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-xs text-left">
+                <thead>
+                  <tr class="border-b border-purp-800/60 text-slate-400 uppercase font-semibold">
+                    <th class="py-2.5 px-2">#</th>
+                    <th class="py-2.5 px-2">Klub</th>
+                    <th class="py-2.5 px-2 text-center">Main</th>
+                    <th class="py-2.5 px-2 text-center">GD</th>
+                    <th class="py-2.5 px-2 text-center">Poin</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-purp-900/40 font-medium">
+                  <tr class="hover:bg-purp-950/40">
+                    <td class="py-2 px-2 text-gold-400 font-bold">1</td>
+                    <td class="py-2 px-2 flex items-center gap-2 text-white font-semibold">
+                      <span>🔵</span> Persib
+                    </td>
+                    <td class="py-2 px-2 text-center text-slate-300">18</td>
+                    <td class="py-2 px-2 text-center text-slate-300">+16</td>
+                    <td class="py-2 px-2 text-center font-bold text-white">38</td>
+                  </tr>
+                  <tr class="hover:bg-purp-950/40">
+                    <td class="py-2 px-2 text-gold-400 font-bold">2</td>
+                    <td class="py-2 px-2 flex items-center gap-2 text-white font-semibold">
+                      <span>🔴</span> Borneo FC
+                    </td>
+                    <td class="py-2 px-2 text-center text-slate-300">18</td>
+                    <td class="py-2 px-2 text-center text-slate-300">+12</td>
+                    <td class="py-2 px-2 text-center font-bold text-white">36</td>
+                  </tr>
+                  <!-- Baris Persita (Highlighted) -->
+                  <tr class="bg-gradient-to-r from-purp-900/80 via-purp-800/60 to-purp-900/80 border-y border-gold-400/40">
+                    <td class="py-2.5 px-2 text-gold-300 font-black">5</td>
+                    <td class="py-2.5 px-2 flex items-center gap-2 text-gold-300 font-black">
+                      <span class="text-sm">🟣</span> PERSITA
+                    </td>
+                    <td class="py-2.5 px-2 text-center text-gold-200 font-bold">18</td>
+                    <td class="py-2.5 px-2 text-center text-gold-200 font-bold">+7</td>
+                    <td class="py-2.5 px-2 text-center font-black text-gold-400 text-sm">31</td>
+                  </tr>
+                  <tr class="hover:bg-purp-950/40">
+                    <td class="py-2 px-2 text-slate-400">6</td>
+                    <td class="py-2 px-2 flex items-center gap-2 text-slate-300">
+                      <span>🟡</span> Barito Putera
+                    </td>
+                    <td class="py-2 px-2 text-center text-slate-400">18</td>
+                    <td class="py-2 px-2 text-center text-slate-400">+4</td>
+                    <td class="py-2 px-2 text-center font-bold text-white">29</td>
+                  </tr>
+                  <tr class="hover:bg-purp-950/40">
+                    <td class="py-2 px-2 text-slate-400">7</td>
+                    <td class="py-2 px-2 flex items-center gap-2 text-slate-300">
+                      <span>🟠</span> Persija
+                    </td>
+                    <td class="py-2 px-2 text-center text-slate-400">18</td>
+                    <td class="py-2 px-2 text-center text-slate-400">+2</td>
+                    <td class="py-2 px-2 text-center font-bold text-white">28</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-purp-800/60 text-center">
+              <button onclick="askAiKlasemenScenario()" class="text-xs font-bold text-gold-400 hover:text-white transition inline-flex items-center gap-1.5">
+                <span>✨ Simulasi Peluang 4 Besar (Championship Series) dengan AI</span>
+                <i class="fa-solid fa-chart-line text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SKUAD & PLAYER SPOTLIGHT ================= -->
+  <section id="skuad" class="py-14 bg-dark-850 border-t border-purp-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-400">Bintang Lapangan</span>
+        <h2 class="font-display font-black text-3xl text-white mt-1">Pendekar Sorotan Pekan Ini</h2>
+        <p class="text-slate-400 text-xs mt-2">Pemain dengan kontribusi determinan dalam skema taktik Pendekar Cisadane sepanjang bulan ini.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Player 1 -->
+        <div class="p-6 rounded-3xl purple-glass border border-purp-700/40 flex flex-col items-center text-center relative overflow-hidden group hover:border-gold-400/50 transition duration-300">
+          <div class="absolute -top-10 -right-10 w-28 h-28 bg-gold-400/10 rounded-full blur-xl pointer-events-none"></div>
+          <div class="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-purp-600 via-gold-400 to-purp-800 mb-4 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Bae Sin-yeong" class="w-full h-full object-cover rounded-full" />
+            <span class="absolute bottom-0 right-0 bg-dark-900 text-gold-400 font-display font-black text-xs px-2 py-0.5 rounded-full border border-gold-400">#33</span>
+          </div>
+          <span class="text-[11px] font-bold text-purp-300 uppercase tracking-wider">Gelandang Bertahan</span>
+          <h4 class="font-display font-black text-lg text-white mt-1">Bae Sin-yeong</h4>
+          <p class="text-xs text-slate-400 mt-1">Jenderal pengatur ritme di lini tengah dengan akurasi umpan 89%.</p>
+          <div class="w-full grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-purp-800/50 text-center">
+            <div>
+              <span class="block font-black text-gold-400 text-sm">18</span>
+              <span class="text-[10px] text-slate-400">Main</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">3</span>
+              <span class="text-[10px] text-slate-400">Gol</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">4</span>
+              <span class="text-[10px] text-slate-400">Assist</span>
+            </div>
+          </div>
+          <button onclick="askPlayerScout('Bae Sin-yeong', 'Gelandang Bertahan')" class="mt-4 w-full py-2 rounded-xl bg-purp-900/80 hover:bg-gold-400 hover:text-dark-900 text-gold-300 text-xs font-bold border border-gold-400/30 transition flex items-center justify-center gap-1.5">
+            <span>✨ AI Scouting Report</span>
+          </button>
+        </div>
+
+        <!-- Player 2 -->
+        <div class="p-6 rounded-3xl purple-glass border border-gold-400/40 flex flex-col items-center text-center relative overflow-hidden group hover:border-gold-400 transition duration-300 shadow-xl shadow-purp-950">
+          <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-gold-400 text-dark-900 font-extrabold text-[9px] uppercase tracking-wider">
+            Player of The Month
+          </div>
+          <div class="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-gold-400 via-amber-200 to-purp-600 mb-4 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" alt="Ramiro Fergonzi" class="w-full h-full object-cover rounded-full" />
+            <span class="absolute bottom-0 right-0 bg-dark-900 text-gold-400 font-display font-black text-xs px-2 py-0.5 rounded-full border border-gold-400">#9</span>
+          </div>
+          <span class="text-[11px] font-bold text-gold-400 uppercase tracking-wider">Penyerang Utama</span>
+          <h4 class="font-display font-black text-lg text-white mt-1">Ramiro Fergonzi</h4>
+          <p class="text-xs text-slate-400 mt-1">Ujung tombak tajam dengan etos kerja pressing garis pertama tak kenal lelah.</p>
+          <div class="w-full grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-purp-800/50 text-center">
+            <div>
+              <span class="block font-black text-gold-400 text-sm">17</span>
+              <span class="text-[10px] text-slate-400">Main</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">9</span>
+              <span class="text-[10px] text-slate-400">Gol</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">5</span>
+              <span class="text-[10px] text-slate-400">Assist</span>
+            </div>
+          </div>
+          <button onclick="askPlayerScout('Ramiro Fergonzi', 'Penyerang Utama')" class="mt-4 w-full py-2 rounded-xl bg-gold-400 hover:bg-gold-300 text-dark-900 text-xs font-black transition flex items-center justify-center gap-1.5 shadow">
+            <span>✨ AI Scouting Report</span>
+          </button>
+        </div>
+
+        <!-- Player 3 -->
+        <div class="p-6 rounded-3xl purple-glass border border-purp-700/40 flex flex-col items-center text-center relative overflow-hidden group hover:border-gold-400/50 transition duration-300">
+          <div class="relative w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-purp-600 via-gold-400 to-purp-800 mb-4 shadow-xl">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80" alt="Javlon Guseynov" class="w-full h-full object-cover rounded-full" />
+            <span class="absolute bottom-0 right-0 bg-dark-900 text-gold-400 font-display font-black text-xs px-2 py-0.5 rounded-full border border-gold-400">#19</span>
+          </div>
+          <span class="text-[11px] font-bold text-purp-300 uppercase tracking-wider">Bek Tengah / Kapten</span>
+          <h4 class="font-display font-black text-lg text-white mt-1">Javlon Guseynov</h4>
+          <p class="text-xs text-slate-400 mt-1">Tembok kokoh berkarakter pemimpin yang memimpin komando garis pertahanan.</p>
+          <div class="w-full grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-purp-800/50 text-center">
+            <div>
+              <span class="block font-black text-gold-400 text-sm">18</span>
+              <span class="text-[10px] text-slate-400">Main</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">62</span>
+              <span class="text-[10px] text-slate-400">Intersep</span>
+            </div>
+            <div>
+              <span class="block font-black text-gold-400 text-sm">5</span>
+              <span class="text-[10px] text-slate-400">Clean Sheet</span>
+            </div>
+          </div>
+          <button onclick="askPlayerScout('Javlon Guseynov', 'Bek Tengah & Kapten')" class="mt-4 w-full py-2 rounded-xl bg-purp-900/80 hover:bg-gold-400 hover:text-dark-900 text-gold-300 text-xs font-bold border border-gold-400/30 transition flex items-center justify-center gap-1.5">
+            <span>✨ AI Scouting Report</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FANS ZONE & INTERACTIVE POLLING ================= -->
+  <section id="fanzone" class="py-14 bg-dark-900 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Polling Suporter (7 cols) -->
+        <div class="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-purp-950 via-dark-850 to-dark-900 border border-purp-700/50 shadow-2xl">
+          <div class="flex items-center gap-2 text-gold-400 font-bold text-xs uppercase tracking-widest mb-2">
+            <i class="fa-solid fa-square-poll-vertical"></i> Jajak Pendapat Pendekar
+          </div>
+          <h3 class="font-display font-black text-2xl text-white mb-2">
+            Siapa Man of the Match Laga Pekan Kemarin?
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Suarakan pilihanmu! Hasil voting diperbarui secara langsung oleh komunitas suporter Persita.</p>
+
+          <div class="space-y-3" id="pollOptions">
+            
+            <!-- Option 1 -->
+            <button onclick="votePoll(0)" class="w-full poll-option text-left p-4 rounded-2xl bg-dark-800/90 border border-purp-800/60 hover:border-gold-400/60 transition relative overflow-hidden group">
+              <div id="bar-0" class="absolute left-0 top-0 bottom-0 bg-purp-800/40 transition-all duration-700" style="width: 48%;"></div>
+              <div class="relative z-10 flex items-center justify-between">
+                <span class="font-bold text-sm text-slate-200 group-hover:text-gold-300">Bae Sin-yeong (Gol Penentu Kemenangan)</span>
+                <span id="pct-0" class="font-display font-extrabold text-gold-400 text-sm">48%</span>
+              </div>
+            </button>
+
+            <!-- Option 2 -->
+            <button onclick="votePoll(1)" class="w-full poll-option text-left p-4 rounded-2xl bg-dark-800/90 border border-purp-800/60 hover:border-gold-400/60 transition relative overflow-hidden group">
+              <div id="bar-1" class="absolute left-0 top-0 bottom-0 bg-purp-800/40 transition-all duration-700" style="width: 32%;"></div>
+              <div class="relative z-10 flex items-center justify-between">
+                <span class="font-bold text-sm text-slate-200 group-hover:text-gold-300">Ramiro Fergonzi (1 Assist & Mobilitas Tinggi)</span>
+                <span id="pct-1" class="font-display font-extrabold text-gold-400 text-sm">32%</span>
+              </div>
+            </button>
+
+            <!-- Option 3 -->
+            <button onclick="votePoll(2)" class="w-full poll-option text-left p-4 rounded-2xl bg-dark-800/90 border border-purp-800/60 hover:border-gold-400/60 transition relative overflow-hidden group">
+              <div id="bar-2" class="absolute left-0 top-0 bottom-0 bg-purp-800/40 transition-all duration-700" style="width: 20%;"></div>
+              <div class="relative z-10 flex items-center justify-between">
+                <span class="font-bold text-sm text-slate-200 group-hover:text-gold-300">Kurniawan Kartika Ajie (5 Penyelamatan Krusial)</span>
+                <span id="pct-2" class="font-display font-extrabold text-gold-400 text-sm">20%</span>
+              </div>
+            </button>
+
+          </div>
+
+          <div class="mt-5 flex items-center justify-between text-[11px] text-slate-400">
+            <span><i class="fa-solid fa-users mr-1"></i> <span id="totalVotes">1.240</span> suara masuk</span>
+            <span class="text-purp-300 font-semibold">Voting ditutup jelang matchday berikutnya</span>
+          </div>
+        </div>
+
+        <!-- Chant & Audio Suasana + AI CHANT GENERATOR (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl purple-glass border border-gold-400/30">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Suara Tribun Cisadane</span>
+              <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-gold-400/20 text-gold-300 border border-gold-400/40 font-bold">✨ AI Chant Maker</span>
+            </div>
+            <h3 class="font-display font-black text-2xl text-white mb-2">Chant & Lagu Kebanggaan</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Dengarkan lantunan semangat suporter setia Benteng Viola & Laskar Benteng Cisadane atau ciptakan lirik chant baru dengan bantuan AI!
+            </p>
+
+            <div class="mt-4 p-4 rounded-2xl bg-dark-900/80 border border-purp-800/50">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-purp-700 flex items-center justify-center text-gold-400 text-xl flex-shrink-0 shadow-lg cursor-pointer" onclick="toggleChant()">
+                  <i id="audioPlayIcon" class="fa-solid fa-play ml-0.5"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h5 class="text-sm font-bold text-white truncate">Mars Persita - Abadi Cisadane</h5>
+                  <span class="text-[11px] text-purp-300 block">Koor Gemuruh Seluruh Tribun</span>
+                </div>
+              </div>
+              
+              <!-- Fake Audio Visualizer -->
+              <div class="flex items-center gap-1.5 h-6 mt-4 justify-center" id="visualizerBars">
+                <span class="w-1.5 h-2 bg-gold-400 rounded-full"></span>
+                <span class="w-1.5 h-4 bg-purp-500 rounded-full"></span>
+                <span class="w-1.5 h-3 bg-gold-400 rounded-full"></span>
+                <span class="w-1.5 h-5 bg-purp-400 rounded-full"></span>
+                <span class="w-1.5 h-2 bg-gold-300 rounded-full"></span>
+                <span class="w-1.5 h-6 bg-purp-500 rounded-full"></span>
+                <span class="w-1.5 h-3 bg-gold-400 rounded-full"></span>
+              </div>
+            </div>
+
+            <!-- AI Chant Generator Widget -->
+            <div class="mt-4 p-4 rounded-2xl bg-purp-950/70 border border-purp-700/50">
+              <label class="text-[11px] font-bold text-gold-300 block mb-1.5 flex items-center gap-1">
+                <span>✨ Buat Chant / Yel-Yel Tribun Kustom</span>
+              </label>
+              <div class="flex gap-2">
+                <input type="text" id="chantPlayerTopic" placeholder="Contoh: Bae Sin-yeong / Comeback Menit 90" class="flex-1 bg-dark-800 border border-purp-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-gold-400" />
+                <button onclick="generateCustomChant()" id="btnGenerateChant" class="px-4 py-2 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 hover:from-gold-300 hover:to-amber-400 text-dark-900 font-extrabold text-xs transition flex items-center gap-1 flex-shrink-0">
+                  <span>✨ Buat</span>
+                </button>
+              </div>
+
+              <!-- Chant Output Display -->
+              <div id="aiChantResultBox" class="mt-3 hidden p-3 rounded-xl bg-dark-900 border border-gold-400/30 text-xs text-slate-200">
+                <div class="flex items-center justify-between text-[10px] text-gold-400 font-bold mb-1">
+                  <span>LIRIK CHANT VIOLA BARU</span>
+                  <button onclick="copyGeneratedChant()" class="hover:text-white transition"><i class="fa-regular fa-copy mr-1"></i>Salin</button>
+                </div>
+                <div id="aiChantText" class="font-mono whitespace-pre-line text-slate-300 italic text-[11px] leading-relaxed"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Komunitas Banner -->
+          <div class="mt-4 pt-4 border-t border-purp-800/50 flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-300">Kirim naskah / opini suporter?</span>
+            <button onclick="showToast('Fitur kirim artikel suporter akan dibuka segera!')" class="px-4 py-2 rounded-xl bg-purp-800 hover:bg-gold-400 hover:text-dark-900 text-white text-xs font-bold transition">
+              Kirim Naskah
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= NEWSLETTER ================= -->
+  <section class="py-12 bg-gradient-to-r from-purp-950 via-dark-850 to-purp-950 border-t border-purp-800/50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex p-3 rounded-2xl bg-purp-900/60 border border-gold-400/30 text-gold-400 mb-4">
+        <i class="fa-regular fa-envelope text-xl"></i>
+      </div>
+      <h3 class="font-display font-black text-2xl sm:text-3xl text-white">Jangan Lewatkan Berita Eksklusif Pendekar!</h3>
+      <p class="text-slate-300 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
+        Daftarkan email kamu untuk menerima ringkasan mingguan, wawancara eksklusif pemain, dan bocoran strategi langsung ke kotak masuk.
+      </p>
+
+      <form onsubmit="handleSubscribe(event)" class="mt-6 flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+        <input type="email" id="emailInput" required placeholder="Masukkan alamat email kamu..." class="flex-1 bg-dark-900 border border-purp-700/60 rounded-xl px-4 py-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-gold-400" />
+        <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 hover:from-gold-300 hover:to-amber-400 text-dark-900 font-extrabold text-xs tracking-wider uppercase transition shadow-lg shadow-gold-500/20">
+          Langganan
+        </button>
+      </form>
+      <span class="text-[10px] text-slate-400 block mt-2">100% Gratis • Bebas Spam • Khusus Penggemar Persita</span>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-dark-900 border-t border-purp-900/80 text-slate-400 pt-12 pb-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-10 border-b border-purp-900/60">
+        
+        <!-- Brand Info (2 cols) dengan Logo Baru -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <img 
+              src="Screenshot_2026-08-29_111301-removebg-preview.png" 
+              alt="Logo PURP!" 
+              class="h-9 sm:h-10 w-auto max-w-[130px] object-contain brightness-125 drop-shadow-[0_0_8px_rgba(192,132,252,0.4)]"
+              onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');"
+            />
+            <div class="hidden">
+              <span class="font-display font-black text-xl text-white">PURP!</span>
+            </div>
+            <div class="border-l border-purp-700/60 pl-2.5">
+              <span class="font-display font-black text-base gold-gradient-text block leading-none">MEDIA!</span>
+              <span class="text-[8px] tracking-widest text-purp-300 uppercase block mt-0.5">Tangerang Purple Force</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-400 max-w-sm leading-relaxed mb-4">
+            Portal independen suporter dan media olahraga Tangerang. Mengulas kabar, statistik, profil pemain, serta didukung modul AI pintar untuk analisis taktik Persita Tangerang.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="w-8 h-8 rounded-full bg-dark-800 border border-purp-700/50 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-400 transition text-xs">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-dark-800 border border-purp-700/50 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-400 transition text-xs">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-dark-800 border border-purp-700/50 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-400 transition text-xs">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-dark-800 border border-purp-700/50 flex items-center justify-center text-slate-300 hover:text-gold-400 hover:border-gold-400 transition text-xs">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kolom Navigasi -->
+        <div>
+          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider mb-4">Kanal</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#berita" class="hover:text-gold-400 transition">Berita Liga 1</a></li>
+            <li><a href="#berita" class="hover:text-gold-400 transition">Bursa Transfer</a></li>
+            <li><a href="#berita" class="hover:text-gold-400 transition">Bedah Taktik</a></li>
+            <li><a href="#skuad" class="hover:text-gold-400 transition">Profil & Statistik</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom Fitur AI & Komunitas -->
+        <div>
+          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider mb-4">Fitur AI & Suporter</h4>
+          <ul class="space-y-2 text-xs">
+            <li><button onclick="openAiChatModal()" class="hover:text-gold-400 transition text-left">✨ AI Match Scout</button></li>
+            <li><button onclick="askAiMatchPreview()" class="hover:text-gold-400 transition text-left">✨ Prediksi Lawan</button></li>
+            <li><a href="#fanzone" class="hover:text-gold-400 transition">✨ AI Chant Generator</a></li>
+            <li><a href="#fanzone" class="hover:text-gold-400 transition">Polling Mingguan</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom Info Stadion -->
+        <div>
+          <h4 class="font-display font-bold text-sm text-white uppercase tracking-wider mb-4">Home Base</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-2">
+            <strong class="text-white">Indomilk Arena Stadium</strong><br />
+            Kelapa Dua, Kab. Tangerang, Banten
+          </p>
+          <span class="inline-block px-2.5 py-1 rounded bg-purp-950 border border-purp-800 text-[10px] text-gold-400 font-semibold">
+            Kapasitas: 15.000 Penonton
+          </span>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        <p>© 2026 PURP MEDIA! Dibuat dengan semangat cinta Pendekar Cisadane.</p>
+        <p class="text-[11px] text-slate-400">Media olahraga suporter didukung LLM Generatif • Tangerang, Banten</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL BACA ARTIKEL + AI SUMMARY ================= -->
+  <div id="articleModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-dark-850 border border-purp-600/50 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="sticky top-4 right-4 ml-auto w-9 h-9 rounded-full bg-dark-900/90 text-slate-300 hover:text-gold-400 hover:bg-purp-900 flex items-center justify-center transition z-20">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="p-6 sm:p-8 -mt-9">
+        <div class="flex items-center gap-2 mb-3">
+          <span id="modalCategory" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gold-400 text-dark-900">
+            Taktik & Analisis
+          </span>
+          <span class="text-xs text-slate-400" id="modalDate">• 2 Jam yang lalu</span>
+        </div>
+
+        <h2 id="modalTitle" class="font-display font-black text-2xl sm:text-3xl text-white mb-4 leading-tight">
+          Judul Artikel Lengkap Persita Tangerang
+        </h2>
+
+        <!-- AI SUMMARY ACCORDION / BOX -->
+        <div class="mb-6 p-4 rounded-2xl purple-glass border border-gold-400/40 relative overflow-hidden">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded-lg bg-gold-400/20 flex items-center justify-center text-gold-400 text-xs">
+                <i class="fa-solid fa-sparkles"></i>
+              </div>
+              <span class="font-display font-bold text-xs uppercase tracking-wider text-gold-300">Cisadane Quick Brief</span>
+            </div>
+            <button onclick="triggerArticleSummary()" id="btnAiSummary" class="px-3 py-1 rounded-lg bg-gradient-to-r from-purp-700 to-amber-600 hover:from-purp-600 hover:to-amber-500 text-white font-bold text-xs transition flex items-center gap-1.5 shadow">
+              <span>✨ Ringkas dengan AI</span>
+            </button>
+          </div>
+          
+          <div id="aiSummaryLoading" class="hidden py-3">
+            <div class="flex items-center gap-2 text-xs text-gold-300 font-medium animate-pulse">
+              <i class="fa-solid fa-circle-notch fa-spin"></i>
+              <span>Gemini AI sedang menganalisis poin taktis artikel...</span>
+            </div>
+          </div>
+
+          <div id="aiSummaryContent" class="hidden text-xs text-slate-200 leading-relaxed border-t border-purp-700/40 pt-2.5 mt-2">
+            <!-- Dynamic bullets inserted here -->
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden mb-6 border border-purp-800/40">
+          <img id="modalImage" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" alt="Foto Berita" class="w-full h-64 object-cover" />
+        </div>
+
+        <div id="modalBody" class="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed space-y-4">
+          <p>
+            Persita Tangerang terus menunjukkan konsistensi permainan yang menjanjikan dalam lanjutan kompetisi musim ini. Disiplin posisi antar-lini dan transisi cepat dari bertahan ke menyerang terbukti efektif mengunci serangan lawan.
+          </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-purp-800/60 flex items-center justify-between">
+          <span class="text-xs text-slate-400">Bagikan artikel ini:</span>
+          <div class="flex items-center gap-2">
+            <button onclick="shareArticle('Artikel PURP MEDIA!')" class="px-3 py-1.5 rounded-lg bg-dark-700 hover:bg-gold-400 hover:text-dark-900 text-xs font-bold transition">
+              <i class="fa-solid fa-link mr-1"></i> Salin Link
+            </button>
+            <button onclick="closeModal()" class="px-4 py-1.5 rounded-lg bg-purp-800 hover:bg-purp-700 text-xs font-bold text-white transition">
+              Tutup
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL CISADANE AI SCOUT (FULL INTERACTIVE CHAT) ================= -->
+  <div id="aiScoutModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-dark-850 border border-purp-600/60 rounded-3xl max-w-2xl w-full h-[85vh] flex flex-col shadow-2xl overflow-hidden relative">
+      
+      <!-- AI Header -->
+      <div class="p-4 sm:p-5 purple-glass border-b border-purp-700/50 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purp-700 via-gold-400 to-amber-500 p-[2px]">
+            <div class="w-full h-full bg-dark-900 rounded-[14px] flex items-center justify-center text-gold-400">
+              <i class="fa-solid fa-brain text-lg"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-display font-black text-lg text-white">Cisadane AI Scout</h3>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-gold-400 text-dark-900 uppercase">Gemini 2.5 Flash</span>
+            </div>
+            <span class="text-[11px] text-purp-300">Analis Taktik, Prediksi Laga, & Pengetahuan Lengkap Persita</span>
+          </div>
+        </div>
+        
+        <button onclick="closeAiChatModal()" class="w-8 h-8 rounded-full bg-dark-800 text-slate-300 hover:text-white hover:bg-purp-900 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Preset Suggestion Chips -->
+      <div class="px-4 py-2 bg-dark-900/90 border-b border-purp-800/40 flex items-center gap-2 overflow-x-auto scrollbar-none text-xs">
+        <span class="text-[10px] text-gold-400 font-bold uppercase tracking-wider flex-shrink-0">Topik Cepat:</span>
+        <button onclick="fillAndSendAi('Prediksi laga Persita vs Bali United pekan ini di Indomilk Arena? Berikan perkiraan skor dan strategi kunci.')" class="px-3 py-1 rounded-full bg-purp-900/60 hover:bg-purp-800 text-purp-200 border border-purp-700 text-[11px] whitespace-nowrap transition">
+          🔮 Prediksi vs Bali United
+        </button>
+        <button onclick="fillAndSendAi('Bagaimana formasi ideal 4-3-3 Persita agar Bae Sin-yeong dan Ramiro Fergonzi lebih maksimal?')" class="px-3 py-1 rounded-full bg-purp-900/60 hover:bg-purp-800 text-purp-200 border border-purp-700 text-[11px] whitespace-nowrap transition">
+          ⚙️ Formasi Terbaik Persita
+        </button>
+        <button onclick="fillAndSendAi('Analisis peluang Persita lolos ke Championship Series Liga 1 musim ini!')" class="px-3 py-1 rounded-full bg-purp-900/60 hover:bg-purp-800 text-purp-200 border border-purp-700 text-[11px] whitespace-nowrap transition">
+          🏆 Peluang 4 Besar
+        </button>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div id="aiChatMessages" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4 text-xs sm:text-sm">
+        
+        <!-- Welcome Message from AI -->
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-xl bg-purp-800 flex items-center justify-center text-gold-400 text-sm flex-shrink-0">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="bg-dark-800 border border-purp-800/60 rounded-2xl rounded-tl-none p-4 max-w-[85%] text-slate-200 leading-relaxed space-y-2">
+            <p class="font-bold text-gold-300">Halo, Pendekar Cisadane! 🟣⚡</p>
+            <p>Saya adalah **Cisadane AI Scout**, asisten cerdas khusus PURP MEDIA!. Kamu bisa menanyakan prediksi skor, formasi lawan, statistik pemain, rekomendasi taktik, hingga sejarah Persita Tangerang.</p>
+            <p class="text-[11px] text-slate-400">Silakan pilih topik cepat di atas atau ajukan pertanyaan taktismu di bawah ini!</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Chat Input Field -->
+      <div class="p-3 sm:p-4 bg-dark-900 border-t border-purp-800/60">
+        <form id="aiChatForm" onsubmit="handleAiChatSubmit(event)" class="flex items-center gap-2">
+          <input type="text" id="aiChatInput" placeholder="Tanyakan taktik, peluang laga, atau evaluasi pemain Persita..." class="flex-1 bg-dark-800 border border-purp-700 rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-gold-400 transition" />
+          <button type="submit" id="aiChatSubmitBtn" class="px-5 py-3 rounded-xl bg-gradient-to-r from-gold-400 to-amber-500 hover:from-gold-300 hover:to-amber-400 text-dark-900 font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-gold-500/20 transition flex-shrink-0">
+            <span>✨ Kirim</span>
+            <i class="fa-solid fa-paper-plane text-xs"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    // -------------------------------------------------------------
+    // GEMINI API CONFIGURATION & CLIENT
+    // -------------------------------------------------------------
+    const apiKey = ""; // Disuntikkan otomatis oleh runtime environment
+
+    // Helper Exponential Backoff untuk Gemini API
+    async function callGeminiApi(promptText, systemInstructionText = "") {
+      const delays = [1000, 2000, 4000, 8000, 16000];
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      
+      const payload = {
+        contents: [
+          {
+            parts: [{ text: promptText }]
+          }
+        ]
+      };
+
+      if (systemInstructionText) {
+        payload.systemInstruction = {
+          parts: [{ text: systemInstructionText }]
+        };
+      }
+
+      for (let attempt = 0; attempt <= 5; attempt++) {
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`Status respon: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (!generatedText) {
+            throw new Error("Respon teks tidak ditemukan dalam data kandidat.");
+          }
+          return generatedText;
+        } catch (error) {
+          if (attempt < 5) {
+            await new Promise(resolve => setTimeout(resolve, delays[attempt]));
+          } else {
+            throw new Error("Layanan AI sedang sibuk. Silakan coba lagi beberapa saat kemudian.");
+          }
+        }
+      }
+    }
+
+    // 1. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // 2. Custom Toast System (Pengganti alert())
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = msg;
+      toast.classList.remove('opacity-0', 'translate-y-24', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-24', 'pointer-events-none');
+      }, 3500);
+    }
+
+    // 3. Share Helper (Salin ke Clipboard via execCommand)
+    function shareArticle(title) {
+      const dummyInput = document.createElement('input');
+      dummyInput.value = window.location.href;
+      document.body.appendChild(dummyInput);
+      dummyInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummyInput);
+
+      showToast(`Tautan "${title}" berhasil disalin!`);
+    }
+
+    // 4. Modal Artikel Dinamis + AI Summary Handler
+    let currentArticleId = 1;
+    const articlesData = {
+      1: {
+        category: "Taktik & Analisis",
+        date: "2 Jam yang lalu",
+        title: "Kunci Transformasi Lini Tengah Pendekar Cisadane: Lebih Agresif, Solid, dan Mematikan!",
+        image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1000&q=80",
+        body: `<p>Perubahan formasi yang diadaptasi pelatih kepala menempatkan dua gelandang perebut bola yang memiliki stamina tinggi. Hal ini sukses memotong jalur operan vertikal lawan dan menginisiasi serangan balik cepat.</p>
+               <p>Statistik membuktikan bahwa angka penguasaan bola efektif di sepertiga akhir lawan melonjak pesat saat bermain di Indomilk Arena. Sinergi antara pemain lokal dan legiun asing semakin padu seiring berjalannya pekan krusial ini.</p>`
+      },
+      2: {
+        category: "Bursa Transfer",
+        date: "Kemarin, 16:30 WIB",
+        title: "Manajemen Buka Suara Terkait Kabar Pendekatan Playmaker Kreatif Asal Amerika Latin",
+        image: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1000&q=80",
+        body: `<p>Bursa transfer paruh musim selalu menyajikan intrik. Manajemen Persita menegaskan bahwa setiap perekrutan pemain baru disesuaikan dengan kebutuhan teknis tim dan rekomendasi langsung dari jajaran pelatih.</p>
+               <p>"Kami mencari sosok yang tidak hanya piawai mengolah bola, tetapi memiliki dedikasi dan mental baja untuk berjuang demi kejayaan ungu Tangerang," ungkap perwakilan manajemen.</p>`
+      },
+      3: {
+        category: "Taktik Room",
+        date: "2 hari yang lalu",
+        title: "Bedah Formasi 4-2-3-1: Mengapa Transisi Negatif Persita Menjadi Salah Satu yang Terbaik",
+        image: "https://images.unsplash.com/photo-1551958219-acbc608c6377?auto=format&fit=crop&w=1000&q=80",
+        body: `<p>Saat kehilangan bola, seluruh pemain bergerak dengan struktur zona kompak yang membatasi ruang tembak musuh. Kemenangan demi kemenangan Persita diawali dari kedisiplinan bertahan yang sangat kokoh sebelum melancarkan tusukan mematikan lewat kedua sayap.</p>`
+      },
+      4: {
+        category: "Kabar Suporter",
+        date: "3 hari yang lalu",
+        title: "Siapkan Koreo Spektakuler 3D: Benteng Viola Janjikan Gemuruh Indomilk Arena Membakar Semangat",
+        image: "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?auto=format&fit=crop&w=1000&q=80",
+        body: `<p>Tribun utara dan timur Indomilk Arena dipastikan akan bergemuruh luar biasa. Komunitas suporter telah menggalang dana mandiri untuk menghadirkan koreo 3D bertema "Jiwa Pendekar Pantang Menyerah" untuk menyemangati tim di partai kandang krusial.</p>`
+      }
+    };
+
+    function openModal(id) {
+      currentArticleId = id;
+      const modal = document.getElementById('articleModal');
+      const data = articlesData[id] || articlesData[1];
+
+      document.getElementById('modalCategory').textContent = data.category;
+      document.getElementById('modalDate').textContent = `• ${data.date}`;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalImage').src = data.image;
+      document.getElementById('modalBody').innerHTML = data.body;
+
+      // Reset AI Summary view
+      document.getElementById('aiSummaryContent').classList.add('hidden');
+      document.getElementById('aiSummaryLoading').classList.add('hidden');
+      document.getElementById('btnAiSummary').disabled = false;
+
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('articleModal');
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'auto';
+    }
+
+    document.getElementById('articleModal').addEventListener('click', (e) => {
+      if (e.target.id === 'articleModal') {
+        closeModal();
+      }
+    });
+
+    // Fitur AI 1: Ringkas Artikel Berita Otomatis
+    async function triggerArticleSummary() {
+      const article = articlesData[currentArticleId] || articlesData[1];
+      const loadingEl = document.getElementById('aiSummaryLoading');
+      const contentEl = document.getElementById('aiSummaryContent');
+      const btn = document.getElementById('btnAiSummary');
+
+      btn.disabled = true;
+      loadingEl.classList.remove('hidden');
+      contentEl.classList.add('hidden');
+
+      const systemPrompt = "Anda adalah analis taktis dan redaktur olahraga senior di PURP MEDIA!, media suporter Persita Tangerang. Tuliskan ringkasan dengan nada antusias suporter dan lugas.";
+      const prompt = `Tolong berikan ringkasan eksekutif dari artikel berikut dalam 3 poin peluru praktis (gunakan emoji bola/ungu) serta 1 kalimat kesimpulan dampak bagi Persita:\n\nJudul: ${article.title}\nKategori: ${article.category}\nIsi:\n${article.body.replace(/<[^>]*>?/gm, '')}`;
+
+      try {
+        const summary = await callGeminiApi(prompt, systemPrompt);
+        contentEl.innerHTML = formatMarkdownToHtml(summary);
+        contentEl.classList.remove('hidden');
+        showToast("Ringkasan artikel berhasil dibuat oleh AI!");
+      } catch (err) {
+        contentEl.innerHTML = `<span class="text-rose-400 font-medium">Gagal memuat ringkasan AI: ${err.message}</span>`;
+        contentEl.classList.remove('hidden');
+      } finally {
+        loadingEl.classList.add('hidden');
+        btn.disabled = false;
+      }
+    }
+
+    // 5. Filter Kategori Berita
+    function filterNews(cat) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.classList.remove('bg-dark-700', 'text-slate-300');
+          btn.classList.add('bg-gold-400', 'text-dark-900');
+        } else {
+          btn.classList.remove('bg-gold-400', 'text-dark-900');
+          btn.classList.add('bg-dark-700', 'text-slate-300');
+        }
+      });
+
+      const cards = document.querySelectorAll('.news-card');
+      cards.forEach(card => {
+        if (cat === 'semua' || card.getAttribute('data-category') === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // 6. Live Search Berita
+    function handleSearch(query) {
+      const cards = document.querySelectorAll('.news-card');
+      const q = query.toLowerCase().trim();
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        if (title.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      handleSearch(e.target.value);
+    });
+
+    document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
+      handleSearch(e.target.value);
+    });
+
+    // 7. Polling Fans Interaktif
+    let pollVotes = [595, 396, 249];
+    let hasVoted = false;
+
+    function votePoll(index) {
+      if (hasVoted) {
+        showToast("Kamu sudah memberikan suara untuk polling ini!");
+        return;
+      }
+      pollVotes[index]++;
+      hasVoted = true;
+
+      const total = pollVotes.reduce((a, b) => a + b, 0);
+      document.getElementById('totalVotes').textContent = total.toLocaleString('id-ID');
+
+      pollVotes.forEach((votes, i) => {
+        const pct = Math.round((votes / total) * 100);
+        document.getElementById(`pct-${i}`).textContent = `${pct}%`;
+        document.getElementById(`bar-${i}`).style.width = `${pct}%`;
+      });
+
+      showToast("Pilihanmu berhasil dicatat. Terima kasih, Pendekar!");
+    }
+
+    // 8. Fake Chant Audio Player Visualizer
+    let isPlaying = false;
+    let visualizerInterval = null;
+
+    function toggleChant() {
+      isPlaying = !isPlaying;
+      const btnText = document.getElementById('chantBtnText');
+      const playIcon = document.getElementById('audioPlayIcon');
+      const bars = document.querySelectorAll('#visualizerBars span');
+
+      if (isPlaying) {
+        btnText.textContent = "Chant: Memutar...";
+        playIcon.className = "fa-solid fa-pause";
+        showToast("🎵 Memutar suasana chant gemuruh tribun Indomilk Arena!");
+        
+        visualizerInterval = setInterval(() => {
+          bars.forEach(bar => {
+            const randomH = Math.floor(Math.random() * 20) + 4;
+            bar.style.height = `${randomH}px`;
+          });
+        }, 150);
+      } else {
+        btnText.textContent = "Chant Viola";
+        playIcon.className = "fa-solid fa-play ml-0.5";
+        clearInterval(visualizerInterval);
+        bars.forEach(bar => bar.style.height = '8px');
+        showToast("Audio chant dihentikan.");
+      }
+    }
+
+    // Fitur AI 2: Generator Chant Viola Kustom
+    async function generateCustomChant() {
+      const topic = document.getElementById('chantPlayerTopic').value.trim() || 'Semangat Juang Pendekar Cisadane';
+      const btn = document.getElementById('btnGenerateChant');
+      const resultBox = document.getElementById('aiChantResultBox');
+      const chantTextEl = document.getElementById('aiChantText');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Meracik...`;
+
+      const systemPrompt = "Kamu adalah capo suporter legendaris Benteng Viola Persita Tangerang. Buat lirik yel-yel/chant tribun yang berirama tegas, mudah dinyanyikan, membakar adrenalin dengan selipan tepukan [PROK PROK PROK] dan seruan identitas Tangerang Ungu.";
+      const prompt = `Buatkan 1 bait lirik chant/yel-yel pendek (4-6 baris) bertema "${topic}" dengan nuansa ungu Cisadane yang membakar semangat penonton di Indomilk Arena.`;
+
+      try {
+        const chantLyrics = await callGeminiApi(prompt, systemPrompt);
+        chantTextEl.textContent = chantLyrics;
+        resultBox.classList.remove('hidden');
+        showToast("✨ Chant baru berhasil diciptakan oleh AI!");
+      } catch (err) {
+        showToast(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>✨ Buat</span>`;
+      }
+    }
+
+    function copyGeneratedChant() {
+      const text = document.getElementById('aiChantText').textContent;
+      const dummyInput = document.createElement('textarea');
+      dummyInput.value = text;
+      document.body.appendChild(dummyInput);
+      dummyInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummyInput);
+      showToast("Lirik chant berhasil disalin!");
+    }
+
+    // 9. Countdown Timer Match
+    function updateCountdown() {
+      const now = new Date();
+      let target = new Date();
+      target.setDate(now.getDate() + 2);
+      target.setHours(19, 0, 0, 0);
+
+      const diff = target - now;
+      if (diff > 0) {
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(d).padStart(2, '0');
+        document.getElementById('hours').textContent = String(h).padStart(2, '0');
+        document.getElementById('mins').textContent = String(m).padStart(2, '0');
+        document.getElementById('secs').textContent = String(s).padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 10. Newsletter Form
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      if (email) {
+        showToast(`Selamat! ${email} telah terdaftar di buletin PURP MEDIA!`);
+        document.getElementById('emailInput').value = '';
+      }
+    }
+
+    // -------------------------------------------------------------
+    // FITUR AI 3: CISADANE AI SCOUT (INTERACTIVE CHAT MODAL)
+    // -------------------------------------------------------------
+    const aiScoutModal = document.getElementById('aiScoutModal');
+    const aiChatMessages = document.getElementById('aiChatMessages');
+    const aiChatInput = document.getElementById('aiChatInput');
+    const aiChatSubmitBtn = document.getElementById('aiChatSubmitBtn');
+
+    function openAiChatModal() {
+      aiScoutModal.classList.remove('opacity-0', 'pointer-events-none');
+      aiScoutModal.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+      aiChatInput.focus();
+    }
+
+    function closeAiChatModal() {
+      aiScoutModal.classList.remove('opacity-100');
+      aiScoutModal.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'auto';
+    }
+
+    aiScoutModal.addEventListener('click', (e) => {
+      if (e.target.id === 'aiScoutModal') {
+        closeAiChatModal();
+      }
+    });
+
+    function appendUserMessage(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = "flex items-start justify-end gap-3";
+      msgDiv.innerHTML = `
+        <div class="bg-gradient-to-r from-purp-800 to-purp-900 border border-purp-600/50 rounded-2xl rounded-tr-none p-3.5 max-w-[85%] text-white leading-relaxed text-xs sm:text-sm">
+          ${escapeHtml(text)}
+        </div>
+        <div class="w-8 h-8 rounded-xl bg-gold-400 text-dark-900 font-bold flex items-center justify-center text-xs flex-shrink-0">
+          U
+        </div>
+      `;
+      aiChatMessages.appendChild(msgDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    function appendAiLoading() {
+      const loadingDiv = document.createElement('div');
+      loadingDiv.id = 'aiTempLoadingMsg';
+      loadingDiv.className = "flex items-start gap-3";
+      loadingDiv.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-purp-800 flex items-center justify-center text-gold-400 text-sm flex-shrink-0">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="bg-dark-800 border border-purp-800/60 rounded-2xl rounded-tl-none p-3.5 text-gold-300 text-xs flex items-center gap-2">
+          <i class="fa-solid fa-circle-notch fa-spin text-sm"></i>
+          <span>Cisadane AI sedang meramu data taktik & analisis...</span>
+        </div>
+      `;
+      aiChatMessages.appendChild(loadingDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    function removeAiLoading() {
+      const el = document.getElementById('aiTempLoadingMsg');
+      if (el) el.remove();
+    }
+
+    function appendAiResponse(text) {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = "flex items-start gap-3";
+      msgDiv.innerHTML = `
+        <div class="w-8 h-8 rounded-xl bg-purp-800 flex items-center justify-center text-gold-400 text-sm flex-shrink-0">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="bg-dark-800 border border-purp-800/60 rounded-2xl rounded-tl-none p-4 max-w-[85%] text-slate-200 leading-relaxed text-xs sm:text-sm space-y-2">
+          ${formatMarkdownToHtml(text)}
+        </div>
+      `;
+      aiChatMessages.appendChild(msgDiv);
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+    }
+
+    async function handleAiChatSubmit(e) {
+      if (e) e.preventDefault();
+      const query = aiChatInput.value.trim();
+      if (!query) return;
+
+      appendUserMessage(query);
+      aiChatInput.value = "";
+      aiChatSubmitBtn.disabled = true;
+      appendAiLoading();
+
+      const systemPrompt = `Anda adalah "Cisadane AI Scout", analis taktik sepak bola dan asisten resmi media PURP MEDIA! untuk klub Persita Tangerang ("Pendekar Cisadane"). Karakter Anda ramah, berwawasan sepak bola mendalam, paham Liga 1 Indonesia, bangga dengan warna ungu Cisadane, dan menyajikan analisis taktik yang tajam serta obyektif. Format jawaban dengan rapi menggunakan poin-poin jika membahas taktik.`;
+
+      try {
+        const responseText = await callGeminiApi(query, systemPrompt);
+        removeAiLoading();
+        appendAiResponse(responseText);
+      } catch (err) {
+        removeAiLoading();
+        appendAiResponse(`⚠️ **Mohon Maaf:** ${err.message}`);
+      } finally {
+        aiChatSubmitBtn.disabled = false;
+        aiChatInput.focus();
+      }
+    }
+
+    function fillAndSendAi(prompt) {
+      openAiChatModal();
+      aiChatInput.value = prompt;
+      handleAiChatSubmit();
+    }
+
+    // Quick Trigger Shortcuts
+    function askAiMatchPreview() {
+      fillAndSendAi("Tolong berikan preview taktik dan prediksi skor detail pertandingan BRI Liga 1 antara Persita Tangerang vs Bali United akhir pekan ini di Indomilk Arena!");
+    }
+
+    function askSpecificMatchAi(matchTitle) {
+      fillAndSendAi(`Analisis mendalam peluang Persita pada laga ${matchTitle}: kelebihan lawan, celah pertahanan yang bisa dieksploitasi, dan pemain kunci Pendekar Cisadane!`);
+    }
+
+    function askPlayerScout(playerName, position) {
+      fillAndSendAi(`Buatkan Scouting Report lengkap untuk pemain Persita: ${playerName} (${position}). Ulas atribut utama, peran dalam formasi, dan area perkembangan!`);
+    }
+
+    function askAiKlasemenScenario() {
+      fillAndSendAi("Berdasarkan posisi Persita di peringkat 5 saat ini dengan 31 poin, bagaimana simulasi matematis dan skenario taktis agar Persita Tangerang bisa menembus 4 besar (Championship Series)?");
+    }
+
+    // Simple Markdown to HTML formatter for AI chat outputs
+    function formatMarkdownToHtml(md) {
+      let html = md
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-gold-300">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/^### (.*$)/gim, '<h4 class="font-display font-bold text-white text-sm mt-2 mb-1">$1</h4>')
+        .replace(/^## (.*$)/gim, '<h3 class="font-display font-black text-white text-base mt-3 mb-1.5">$1</h3>')
+        .replace(/^\- (.*$)/gim, '<div class="flex items-start gap-2 my-1"><span class="text-gold-400 font-bold">•</span><span>$1</span></div>')
+        .replace(/\n\n/g, '<br/>');
+      return html;
+    }
+
+    function escapeHtml(string) {
+      const pre = document.createElement('pre');
+      const text = document.createTextNode(string);
+      pre.appendChild(text);
+      return pre.innerHTML;
+    }
+  </script>
+</body>
+</html>
